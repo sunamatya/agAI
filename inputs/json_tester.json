@@ -1,0 +1,17 @@
+{
+    "width": 200,
+    "length": 200,
+    "thickness": 8,
+    "load_vertical": 3000,
+    "load_horizontal": 300,
+    "factor_of_safety": 2,
+    "deflection_limit": 0.5,
+    "max_weight": 3,
+    "max_cost": 20,
+    "mounting_holes": {
+        "count": 4,
+        "diameter": 10,
+        "spacing_x": 160,
+        "spacing_y": 160
+    }
+}
