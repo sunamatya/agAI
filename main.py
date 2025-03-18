@@ -16,7 +16,8 @@
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 from requirements_parser import parse_user_input
 from unittests.tester_cad import generate_baseplate
-from fea_simulator_callax import run_fea_analysis
+#from fea_simulator import run_fea_analysis
+from fea_simulator import FEA
 from material_selector import select_best_material
 from optimizer import optimize_design
 from report_generator import generate_report
@@ -37,7 +38,8 @@ def main():
 
     # Step 4: Run FEA simulation
     #fea_results = run_fea_analysis(cad_file, material) #use CALLAX or use the ANN part of the code
-    fea_results = run_fea_analysis(requirements, material)
+    FEA.init(requirements,material)
+    fea_results = FEA.run_fea_analysis()
 
     # Step 5: Optimize design if needed
     optimized_design = optimize_design(fea_results, requirements)

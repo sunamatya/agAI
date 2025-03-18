@@ -107,3 +107,56 @@ losshistory, train_state = model.train(iterations=10000)
 
 # Save and plot results
 dde.saveplot(losshistory, train_state, issave=True, isplot=True)
+
+
+# def test_metric(model, geom, pde_func, num_test=100):
+#     """
+#     Evaluates the model using test points sampled from the domain.
+#
+#     Args:
+#         model: Trained deepxde model.
+#         geom: The geometry domain of the problem.
+#         pde_func: Function that defines the PDE residual (must accept x as input).
+#         num_test: Number of test points to sample.
+#
+#     Returns:
+#         Dictionary of test metrics.
+#     """
+#     # Sample test points in the domain
+#     x_test = geom.random_points(num_test)
+#
+#     # Compute PDE residuals using the same function from training
+#     pde_residuals = np.abs(pde_func(x_test, model))  # Pass model instead of y_pred
+#     mse_pde = np.mean(pde_residuals**2)
+#
+#     return {"MSE_PDE": mse_pde}
+#
+# def pde(x, model):
+#     """
+#     Computes PDE residual using the trained model.
+#
+#     Args:
+#         x: Input points (tensor or array).
+#         model: Trained deepxde model.
+#
+#     Returns:
+#         Residual of the PDE at input points.
+#     """
+#     # Convert x to TensorFlow tensor if needed
+#     x_tf = dde.backend.tf.convert_to_tensor(x)
+#
+#     # Predict y using the model
+#     y = model.net(x_tf)
+#
+#     # Compute derivatives symbolically
+#     du_x = dde.grad.jacobian(y, x_tf, i=0, j=0)  # ∂u/∂x
+#     du_y = dde.grad.jacobian(y, x_tf, i=0, j=1)  # ∂u/∂y
+#
+#     # PDE residual (example: Laplace equation Δu = 0)
+#     residual = du_x + du_y  # Modify based on your PDE
+#
+#     return dde.backend.tf.math.abs(residual)
+#
+# # Example usage after training
+# metrics = test_metric(model, geom, pde)
+# print(metrics)
