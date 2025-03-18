@@ -91,5 +91,5 @@ class FEA:
         # Plot results
         dde.saveplot(losshistory, train_state, issave=True, isplot=True)
 
+        #return results from here
 
-        #check extra file tester here?

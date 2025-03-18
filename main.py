@@ -19,7 +19,7 @@ from unittests.tester_cad import generate_baseplate
 #from fea_simulator import run_fea_analysis
 from fea_simulator import FEA
 from material_selector import select_best_material
-from optimizer import optimize_design
+from unittests.tester_optimizer import optimize_design
 from report_generator import generate_report
 
 
@@ -42,10 +42,10 @@ def main():
     fea_results = FEA.run_fea_analysis()
 
     # Step 5: Optimize design if needed
-    optimized_design = optimize_design(fea_results, requirements)
+    optimized_design = optimize_design(requirements, material)
 
     # Step 6: Generate final report
-    generate_report(optimized_design)
+    generate_report(cad_file, fea_results, optimized_design)
 
     print("✅ Design process complete! Check the 'outputs/' folder for results.")
 
