@@ -13,7 +13,8 @@ def select_best_material(requirements):
 
     conn.close()
     print ("name:", best_material[1], "elastic_modulus:", best_material[2], "poisson_ratio:", best_material[3])
-    return {"name": best_material[0], "elastic_modulus": best_material[1], "poisson_ratio": best_material[2]}
+    return {"name": best_material[1], "elastic_modulus": best_material[2], "poisson_ratio": best_material[3]}
+    #return {"name": best_material[0], "elastic_modulus": best_material[1], "poisson_ratio": best_material[2]}
 
 def main():
     print("📌 Welcome to the Local Agentic AI Baseplate Designer")

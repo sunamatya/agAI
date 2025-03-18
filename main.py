@@ -34,7 +34,7 @@ def main():
     material = select_best_material(requirements)
 
     # Step 3: Generate CAD model
-    cad_file = generate_baseplate(requirements, material)
+    cad_file = generate_baseplate(requirements)
 
     # Step 4: Run FEA simulation
     #fea_results = run_fea_analysis(cad_file, material) #use CALLAX or use the ANN part of the code

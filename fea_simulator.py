@@ -5,14 +5,14 @@ import tensorflow as tf
 
 # Define the PDE system
 class FEA:
-    def __init__ (self, requirements, materials):
+    def __init__ (self, design_constraints, materials):
         self.matetial_name = materials['name']
         self.E, self.nu = materials['elastic_modulus'], materials['poisson_ratio']
-        self.vertical_load  = requirements
-        self.horizontal_load = requirements
+        self.vertical_load  = design_constraints["load_vertical"]
+        self.horizontal_load =design_constraints["load_horizontal"]
         #get dimension from the requirment file and use here
-        self.width = requirements
-        self.height = requirements
+        self.width = design_constraints['thickness']
+        self.height = design_constraints['width']
 
 
     def run_fea_analysis(self):
@@ -90,3 +90,6 @@ class FEA:
 
         # Plot results
         dde.saveplot(losshistory, train_state, issave=True, isplot=True)
+
+
+        #check extra file tester here?
