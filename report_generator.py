@@ -28,13 +28,14 @@ def generate_report(design_constraints, material, optimizer_file):
     #material selection
     pdf.set_font("Arial", size=14)
     pdf.cell(200, 10, "Initial Material Selection", ln=True, align="C")
+
     #selection constrain
     #selected material
 
 
-    #cad file
-    pdf.image("image.jpg", x=10, y=30, w=100, h=100)
-    pdf.cell(200, 10, f"Cadquery view of the CAD file generated", ln=True)
+    # #cad file
+    # pdf.image("image.jpg", x=10, y=30, w=100, h=100)
+    # pdf.cell(200, 10, f"Cadquery view of the CAD file generated", ln=True)
 
 
     #fea_file and output
