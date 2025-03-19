@@ -6,8 +6,8 @@ max_weight = 3  # kg
 max_cost = 20  # USD
 
 def compute_deflection(thickness, material, width=200e-3, length=200e-3, force=3000, lateral_force=300):
-    E = material["E"]  # Young's modulus in Pascals
-
+    #E = material["E"]  # Young's modulus in Pascals
+    E = material['elastic_modulus']
     # Moment of inertia for a rectangular plate
     I = (width * thickness ** 3) / 12
 
@@ -69,7 +69,7 @@ def optimize_design(design_constraints, material):
 
 # Example material properties (Steel)
 material = {
-    "E": 200e9,  # Young's modulus in Pascals
+    "elastic_modulus": 200e9,  # Young's modulus in Pascals
     "density": 7850,  # kg/m^3
     "cost_per_kg": 2  # USD/kg
 }

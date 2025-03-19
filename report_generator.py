@@ -1,7 +1,7 @@
 from fpdf import FPDF
 
 
-def generate_report(design_constraints, material, optimizer_file):
+def generate_report(design_constraints, materials, optimizer_file):
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
@@ -30,7 +30,24 @@ def generate_report(design_constraints, material, optimizer_file):
     pdf.cell(200, 10, "Initial Material Selection", ln=True, align="C")
 
     #selection constrain
+    weight = design_constraints["max_weight"]
+    max_cost = design_constraints["max_cost"]
+    pdf.cell(200, 10, f"maximum weight: {weight}kg", ln=True)
+    pdf.cell(200, 10, f"maximum cost: {max_cost}", ln=True)
+    pdf.cell(200, 10, f"Selection based on the item with least cost and density based on constraints.", ln=True)
+
+
+
+
     #selected material
+    matetial_name = materials['name']
+    E, nu = materials['elastic_modulus'], materials['poisson_ratio']
+    pdf.cell(200, 10, f"Material selected: {matetial_name}", ln=True)
+    pdf.cell(200, 10,f"elastic_modulus: {E}", ln=True)
+    pdf.cell(200, 10, f"poisson_ratio: {nu}", ln=True)
+
+    pdf.set_font("Arial", size=14)
+    pdf.cell(200, 10, "Snapshot of the CAD model", ln=True, align="C")
 
 
     # #cad file
@@ -39,17 +56,30 @@ def generate_report(design_constraints, material, optimizer_file):
 
 
     #fea_file and output
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(200, 10, "FEA Report and learning", ln=True, align="C")
+    # pdf.image("unittests/plot_1.png", x=10, y=30, w=100, h=100)
+    # pdf.set_font("Arial", size=12)
+    # pdf.cell(200, 10, f"PINN Learning Loss for specified model", ln=True)
+    #
+    # pdf.image("unittests/plot_2.png", x=10, y=30, w=100, h=100)
+    # pdf.cell(200, 10, f"Deflection analysis for the lateral force", ln=True)
+    #
+    # pdf.image("unittests/plot_3.png", x=10, y=30, w=100, h=100)
+    # pdf.cell(200, 10, f"Deflection analysis for the horizontal force", ln=True)
+
     pdf.set_font("Arial", size=14)
     pdf.cell(200, 10, "FEA Report and learning", ln=True, align="C")
-    pdf.image("unittests/plot_1.jpg", x=10, y=30, w=100, h=100)
+    pdf.image("plot_1.png", x=10, y=30, w=100, h=100)
     pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, f"PINN Learning Loss for specified model", ln=True)
 
-    pdf.image("unittests/plot_2.jpg", x=10, y=30, w=100, h=100)
+    pdf.image("plot_2.png", x=10, y=30, w=100, h=100)
     pdf.cell(200, 10, f"Deflection analysis for the lateral force", ln=True)
 
-    pdf.image("unittests/plot_3.jpg", x=10, y=30, w=100, h=100)
+    pdf.image("plot_3.png", x=10, y=30, w=100, h=100)
     pdf.cell(200, 10, f"Deflection analysis for the horizontal force", ln=True)
+
 
 
 
@@ -69,3 +99,4 @@ def generate_report(design_constraints, material, optimizer_file):
     pdf.output(output_path)
 
     print(f"✅ Report saved at {output_path}")
+

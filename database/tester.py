@@ -1,36 +1,43 @@
 import sqlite3
+'''
+TODO: eventually use official dataset, current setup for testing
+Use official material databases like MatWeb, ASM Handbooks, or CES EduPack.
+Check supplier datasheets (e.g., from ArcelorMittal, Alcoa, or local distributors).
+'''
 
 # Connect to (or create) the materials database
 conn = sqlite3.connect("materials.db")
 cursor = conn.cursor()
 
-# Create table for material properties
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS materials (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE,
-    density REAL,           -- g/cm³
-    cost REAL,       -- $/kg
-    yield_strength REAL,    -- MPa
-    elastic_modulus REAL    -- GPa
-);
-""")
+# Create table with additional fields
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS materials (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE NOT NULL,
+        density REAL NOT NULL,
+        cost REAL NOT NULL,
+        elastic_modulus REAL NOT NULL,
+        poisson_ratio REAL NOT NULL
+    )
+''')
 
-# Insert sample materials
-materials_data = [
-    ("Aluminum 6061", 2.7, 3.5, 275, 69),
-    ("Steel A36", 7.85, 0.8, 250, 200),
-    ("Titanium Ti-6Al-4V", 4.43, 20.0, 830, 110),
-    ("Carbon Fiber", 1.6, 50.0, 600, 230)
+# Sample material data
+materials = [
+    ("Aluminum", 2.7, 10, 69e9, 0.33),
+    ("Steel", 7.8, 5, 200e9, 0.30),
+    ("Titanium", 4.5, 50, 116e9, 0.34),
+    ("Copper", 8.9, 8, 110e9, 0.35),
+    ("Plastic", 1.2, 2, 3e9, 0.40)
 ]
 
-cursor.executemany("""
-INSERT OR IGNORE INTO materials (name, density, cost, yield_strength, elastic_modulus)
-VALUES (?, ?, ?, ?, ?);
-""", materials_data)
+# Insert data (ignores duplicates)
+cursor.executemany('''
+    INSERT OR IGNORE INTO materials (name, density, cost, elastic_modulus, poisson_ratio)
+    VALUES (?, ?, ?, ?, ?)
+''', materials)
 
-# Commit and close connection
+# Commit and close
 conn.commit()
 conn.close()
 
-print("✅ materials.db created successfully!")
+print("✅ materials.db created with sample data!")

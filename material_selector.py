@@ -26,8 +26,8 @@ def select_best_material(requirements):
     best_material = min(materials, key=lambda m: m[1])  # Minimize weight
 
     conn.close()
-    print ("name:", best_material[1], "elastic_modulus:", best_material[2], "poisson_ratio:", best_material[3])
-    return {"name": best_material[1], "elastic_modulus": best_material[2], "poisson_ratio": best_material[3]}
+    print ("name:", best_material[1], "density:", best_material[2], "cost:", best_material[3], "elastic_modulus:", best_material[4], "poisson_ratio:", best_material[5])
+    return {"name": best_material[1], "density": best_material[2], "cost": best_material[3], "elastic_modulus": best_material[4], "poisson_ratio":best_material[5]}
     #return {"name": best_material[0], "elastic_modulus": best_material[1], "poisson_ratio": best_material[2]}
 
 def main():

@@ -27,7 +27,9 @@ def main():
     print("📌 Welcome to the Local Agentic AI Baseplate Designer")
 
     # Step 1: Get user input (CLI for now, can be extended to GUI)
-    user_input = input("Enter design requirements (JSON format or interactive mode): ")
+    #user_input = input("Enter design requirements (JSON format or interactive mode): ")
+    user_input = "inputs/json_tester.json"
+
     requirements = parse_user_input(user_input)
 
     # Step 2: Select best material
@@ -38,8 +40,8 @@ def main():
 
     # Step 4: Run FEA simulation
     #fea_results = run_fea_analysis(cad_file, material) #use CALLAX or use the ANN part of the code
-    FEA.init(requirements,material)
-    FEA.run_fea_analysis()
+    fea = FEA(requirements,material)
+    fea.run_fea_analysis()
 
     # Step 5: Optimize design if needed
     optimized_design = optimize_design(requirements, material)
