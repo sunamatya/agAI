@@ -21,7 +21,10 @@ def compute_deflection(thickness, material, width=200e-3, length=200e-3, force=3
     return total_deflection * 1e3  # Convert to mm
 
 def weight_function(thickness, material, width=200e-3, length=200e-3):
-    density = material["density"]  # kg/m^3
+    density = material["density"]  # g/cm^3
+    #convert of kg/m3
+    #density = density /(1000* 0.01 * 0.01 * 0.01)  # original in g/cm3
+
     volume = thickness * (width * length)  # Volume in cubic meters
     return density * volume
 
@@ -86,4 +89,4 @@ design_constraints = {
 }
 
 optimized_result = optimize_design(design_constraints, material)
-print(optimized_result.get("optimized_thickness"))
+print(optimized_result)
