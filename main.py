@@ -39,13 +39,13 @@ def main():
     # Step 4: Run FEA simulation
     #fea_results = run_fea_analysis(cad_file, material) #use CALLAX or use the ANN part of the code
     FEA.init(requirements,material)
-    fea_results = FEA.run_fea_analysis()
+    FEA.run_fea_analysis()
 
     # Step 5: Optimize design if needed
     optimized_design = optimize_design(requirements, material)
 
     # Step 6: Generate final report
-    generate_report(cad_file, fea_results, optimized_design)
+    generate_report(requirements, material, optimized_design)
 
     print("✅ Design process complete! Check the 'outputs/' folder for results.")
 

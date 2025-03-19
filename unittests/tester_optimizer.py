@@ -86,4 +86,4 @@ design_constraints = {
 }
 
 optimized_result = optimize_design(design_constraints, material)
-print(optimized_result)
+print(optimized_result.get("optimized_thickness"))
