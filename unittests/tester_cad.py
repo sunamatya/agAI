@@ -49,6 +49,7 @@ import sys
 
 
 import cadquery as cq
+import matplotlib.pyplot as plt
 
 def generate_baseplate(design_constraints):
     width = design_constraints["width"]
@@ -76,6 +77,45 @@ def generate_baseplate(design_constraints):
     # Export as STEP & STL
     cq.exporters.export(baseplate, "outputs/baseplate.step")
     cq.exporters.export(baseplate, "outputs/baseplate.stl")
+
+    # Generate a 2D projection
+    plt.figure(figsize=(5, 5))
+    cq.exporters.export(baseplate, "baseplate.svg")  # Save as vector image
+
+    # Save STL file
+    cq.exporters.export(baseplate, "output.stl")
+
+    # # Generate a 2D projection for visualization
+    # plt.figure(figsize=(5, 5))
+    # cq.exporters.export(baseplate, "output.svg")  # Save as vector image
+    # plt.imshow(plt.imread("output.svg"))
+    # plt.axis("off")
+    # plt.savefig("output_view.png")  # Save the view as PNG
+    # plt.show()
+
+
+    # from PIL import Image
+    # from io import BytesIO
+    # # Convert SVG to PNG
+    # img_png = cairosvg.svg2png('baseplate.svg')
+    # img = Image.open(BytesIO(img_png))
+    # plt.imshow(img)
+    # plt.savefig("output_view.png")  # Save the view as PNG
+    from pixels2svg import pixels2svg
+    output_path = 'baseplate.png'
+    input_path = 'baseplate.svg'
+    try:
+        result = pixels2svg(input_path, output_path)
+        if output_path is None:
+            return result
+    except FileNotFoundError:
+        print(f"Error: Input file not found at '{input_path}'")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+    print("✅ STL and snapshot saved.")
+
 
     print("✅ CAD Model saved as 'baseplate.step' and 'baseplate.stl'")
     return "outputs/baseplate.step"

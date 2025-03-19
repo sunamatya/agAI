@@ -106,8 +106,21 @@ model.compile("adam", lr=0.001)
 losshistory, train_state = model.train(iterations=10000)
 
 # Save and plot results
+import matplotlib.pyplot as plt
+import matplotlib
+
+# Ensure Matplotlib uses the correct backend
+matplotlib.use("Agg")  # 'Agg' allows saving without needing a display (useful in some environments)
+
 dde.saveplot(losshistory, train_state, issave=True, isplot=True)
 
+# Manually save each plot
+fig_manager = matplotlib._pylab_helpers.Gcf.get_all_fig_managers()  # Get all figures
+for i, manager in enumerate(fig_manager):
+    fig = manager.canvas.figure
+    fig.savefig(f"plot_{i+1}.png", dpi=300, bbox_inches="tight")  # Save as PNG
+
+print("All plots saved successfully!")
 
 # def test_metric(model, geom, pde_func, num_test=100):
 #     """
